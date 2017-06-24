@@ -1,5 +1,6 @@
 package com.example.e610.bakingapp.Activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import android.widget.Toast;
 
 import com.example.e610.bakingapp.Adapters.RecipeAdapter;
 import com.example.e610.bakingapp.Fragments.RecipesFragment;
+import com.example.e610.bakingapp.Models.Ingredient;
 import com.example.e610.bakingapp.Models.Recipe;
+import com.example.e610.bakingapp.Models.Step;
 import com.example.e610.bakingapp.R;
 import com.example.e610.bakingapp.Utils.FetchData;
 import com.example.e610.bakingapp.Utils.NetworkResponse;
@@ -25,6 +28,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
 
     //Global Variables
 
+    private int Index=0;
     private  RecyclerView RecipeRecyclerView;
     private  ArrayList<Recipe> Recipes;
     private  RecipeAdapter recipeAdapter;
@@ -60,6 +64,17 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     @Override
     public void ItemClicked(View v, int position) {
 
+        Intent intent=new Intent(this,RecipeDetailedActivity.class);
+        ArrayList<Step> steps=Recipes.get(position).getSteps();
+        ArrayList<Ingredient> ingredients=Recipes.get(position).getIngredients();;
+        Bundle ingredientsStepsBundle=new Bundle();
+
+        ingredientsStepsBundle.putParcelableArrayList("Ingredients",ingredients);
+        ingredientsStepsBundle.putParcelableArrayList("Steps",steps);
+        intent.putExtra("IngredientsStepsBundle",ingredientsStepsBundle);
+
+        startActivity(intent);
+
         Toast.makeText(RecipesActivity.this,"Hello ^__^",Toast.LENGTH_SHORT).show();
     }
 
@@ -68,7 +83,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
 
         Recipes = ParsingJson.PasreData(JsonData);
         recipeAdapter = new RecipeAdapter(Recipes, RecipesActivity.this);
-        recipeAdapter.setClickListener(this);
+        //recipeAdapter.setClickListener(this);
         RecipeRecyclerView=(RecyclerView)findViewById(R.id.RecipesRecyclerView);
         RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this,1));
         RecipeRecyclerView.setAdapter(recipeAdapter);

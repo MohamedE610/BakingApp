@@ -42,12 +42,12 @@ public class IngredientStepAdapter extends RecyclerView.Adapter<IngredientStepAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         if(position==0) {
-            Ingredient ingredient = new Ingredient();
-            ingredient=(Ingredient) ingredientAndSteps.get(position);
-            holder.ingredientAndStepName.setText(ingredient.getName());
+            String ingredientStr ;
+            ingredientStr=(String) ingredientAndSteps.get(position);
+            holder.ingredientAndStepName.setText(ingredientStr);
         }
         else{
-            Step step=new Step();
+            Step step;
             step=(Step)ingredientAndSteps.get(position);
             holder.ingredientAndStepName.setText(step.getShortDescription());
         }

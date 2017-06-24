@@ -52,7 +52,7 @@ public class ParsingJson {
             JSONArray jsonArray=new JSONArray(json);
             JSONObject jsonRecipe=(JSONObject)jsonArray.get(i);
             JSONArray jsonSteps=jsonRecipe.getJSONArray("steps");
-            for(int j=0;j<jsonArray.length();j++){
+            for(int j=0;j<jsonSteps.length();j++){
                 JSONObject jsonStep=(JSONObject)jsonSteps.get(j);
                 Step step=new Step();
                 step.setId(jsonStep.getString("id"));
@@ -81,9 +81,9 @@ public class ParsingJson {
 
             JSONArray jsonArray=new JSONArray(json);
             JSONObject jsonRecipe=(JSONObject)jsonArray.get(i);
-            JSONArray jsonSteps=jsonRecipe.getJSONArray("ingredients");
-            for(int j=0;j<jsonArray.length();j++){
-                JSONObject jsonIngredient=(JSONObject)jsonSteps.get(j);
+            JSONArray jsonIngredients=jsonRecipe.getJSONArray("ingredients");
+            for(int j=0;j<jsonIngredients.length();j++){
+                JSONObject jsonIngredient=(JSONObject)jsonIngredients.get(j);
                 Ingredient ingredient=new Ingredient();
                 ingredient.setQuantity(jsonIngredient.getString("quantity"));
                 ingredient.setMeasure(jsonIngredient.getString("measure"));
