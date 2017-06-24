@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e610.bakingapp.Adapters.RecipeAdapter;
@@ -60,7 +61,6 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     public void ItemClicked(View v, int position) {
 
         Toast.makeText(RecipesActivity.this,"Hello ^__^",Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -73,12 +73,14 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this,1));
         RecipeRecyclerView.setAdapter(recipeAdapter);
         recipeAdapter.setClickListener(this);
+/*
         recipeAdapter.setClickListener(new RecipeAdapter.RecyclerViewClickListener() {
             @Override
             public void ItemClicked(View v, int position) {
                 Toast.makeText(RecipesActivity.this,"^__^",Toast.LENGTH_SHORT).show();
             }
         });
+*/
 
     }
 
