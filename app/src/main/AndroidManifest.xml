@@ -23,6 +23,12 @@
         <activity android:name=".Activities.RecipeDetailedActivity" />
         <activity android:name=".Activities.StepActivity" />
         <activity android:name=".Activities.IngredientActivity"></activity>
+
+        <receiver android:name=".Fragments.StepFragment$MediaReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

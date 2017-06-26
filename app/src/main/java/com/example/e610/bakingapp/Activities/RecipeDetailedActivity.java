@@ -98,10 +98,10 @@ public class RecipeDetailedActivity extends AppCompatActivity
 
         else {
 
-           /* intent=new Intent(this,StepActivity.class);
-            bundle.putParcelableArrayList("Steps",steps);
-            intent.putExtra("stepBundle",bundle);
-            startActivity(intent); */
+            intent=new Intent(this,StepActivity.class);
+            bundle.putParcelable("Step",steps.get(position-1));
+            intent.putExtra("StepBundle",bundle);
+            startActivity(intent);
 
             Toast.makeText(RecipeDetailedActivity.this,"Step ^_^" ,Toast.LENGTH_SHORT).show();
         }
