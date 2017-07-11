@@ -72,12 +72,7 @@ public class RecipeDetailedActivity extends AppCompatActivity
 
         ingredientStepAdapter=new IngredientStepAdapter(ingredientStepObjects,RecipeDetailedActivity.this);
         recipeDetailedRecyclerView=(RecyclerView)view.findViewById(R.id.IngredientStepsRecyclerView);
-
-        if(!isTablet)
-           recipeDetailedRecyclerView.setLayoutManager(new GridLayoutManager(RecipeDetailedActivity.this,1));
-        else
-            recipeDetailedRecyclerView.setLayoutManager(new GridLayoutManager(RecipeDetailedActivity.this,3));
-
+        recipeDetailedRecyclerView.setLayoutManager(new GridLayoutManager(RecipeDetailedActivity.this,1));
         recipeDetailedRecyclerView.setAdapter(ingredientStepAdapter);
         ingredientStepAdapter.setClickListener(this);
 
@@ -112,7 +107,7 @@ public class RecipeDetailedActivity extends AppCompatActivity
             {
                 ingredientFragment=new IngredientFragment();
                 ingredientFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.StepFragment,ingredientFragment);
+                getSupportFragmentManager().beginTransaction().replace(R.id.StepFragment,ingredientFragment).commit();
             }
             Toast.makeText(RecipeDetailedActivity.this,"ingredient ^_^" ,Toast.LENGTH_SHORT).show();
         }
@@ -128,7 +123,7 @@ public class RecipeDetailedActivity extends AppCompatActivity
             else{
                 stepFragment=new StepFragment();
                 stepFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.StepFragment,stepFragment);
+                getSupportFragmentManager().beginTransaction().replace(R.id.StepFragment,stepFragment).commit();
             }
 
             Toast.makeText(RecipeDetailedActivity.this,"Step ^_^" ,Toast.LENGTH_SHORT).show();

@@ -91,7 +91,12 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         recipeAdapter = new RecipeAdapter(Recipes, RecipesActivity.this);
         //recipeAdapter.setClickListener(this);
         RecipeRecyclerView=(RecyclerView)findViewById(R.id.RecipesRecyclerView);
-        RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this,1));
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if(isTablet)
+            RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this,2));
+        else
+            RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this,1));
+
         RecipeRecyclerView.setAdapter(recipeAdapter);
         recipeAdapter.setClickListener(this);
 
