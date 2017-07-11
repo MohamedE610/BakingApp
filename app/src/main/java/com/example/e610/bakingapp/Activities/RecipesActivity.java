@@ -17,6 +17,7 @@ import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.Models.Step;
 import com.example.e610.bakingapp.R;
 import com.example.e610.bakingapp.Utils.FetchData;
+import com.example.e610.bakingapp.Utils.MySharedPreferences;
 import com.example.e610.bakingapp.Utils.NetworkResponse;
 import com.example.e610.bakingapp.Utils.NetworkState;
 import com.example.e610.bakingapp.Utils.ParsingJson;
@@ -40,6 +41,8 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
+
+        MySharedPreferences.setUpMySharedPreferences(this,"widgetRecipe");
         Recipes=new ArrayList<>();
         fetchRecipeData=new FetchData();
         recipesFragment=null;
@@ -58,7 +61,6 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         }
 
 
-
     }
 
     @Override
@@ -67,11 +69,15 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         Intent intent=new Intent(this,RecipeDetailedActivity.class);
         ArrayList<Step> steps=Recipes.get(position).getSteps();
         ArrayList<Ingredient> ingredients=Recipes.get(position).getIngredients();;
-        Bundle ingredientsStepsBundle=new Bundle();
+        Recipe recipe =Recipes.get(position);
+        Bundle recipeBundle=new Bundle();
 
-        ingredientsStepsBundle.putParcelableArrayList("Ingredients",ingredients);
-        ingredientsStepsBundle.putParcelableArrayList("Steps",steps);
-        intent.putExtra("IngredientsStepsBundle",ingredientsStepsBundle);
+        recipeBundle.putParcelable("Recipe",recipe);
+        recipeBundle.putParcelableArrayList("Ingredients",ingredients);
+        recipeBundle.putParcelableArrayList("Steps",steps);
+        intent.putExtra("recipeBundle",recipeBundle);
+
+        MySharedPreferences.SaveLastRecipe(recipe);
 
         startActivity(intent);
 
@@ -88,6 +94,12 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this,1));
         RecipeRecyclerView.setAdapter(recipeAdapter);
         recipeAdapter.setClickListener(this);
+
+        if(MySharedPreferences.IsFirstTime())
+        {
+            MySharedPreferences.FirstTime();
+            MySharedPreferences.SaveLastRecipe(Recipes.get(0));
+        }
 /*
         recipeAdapter.setClickListener(new RecipeAdapter.RecyclerViewClickListener() {
             @Override

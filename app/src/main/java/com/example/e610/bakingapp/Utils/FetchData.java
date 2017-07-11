@@ -19,7 +19,7 @@ import java.net.URL;
 public class FetchData extends AsyncTask<Void,Void,String> {
 
     public static String BasicUrl = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
-
+    //public static String BasicUrl ="http://alitaha.net/nageh/get_product_details.php?barcode=1201452012510";
     public FetchData() {
     }
 

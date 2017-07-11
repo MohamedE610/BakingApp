@@ -27,12 +27,13 @@ public class RecipeDetailedActivity extends AppCompatActivity
 
     //Global Variables
 
+    private Recipe recipe;
     private RecyclerView recipeDetailedRecyclerView;
     private ArrayList<Object> ingredientStepObjects;
     private IngredientStepAdapter  ingredientStepAdapter;
     private ArrayList<Step> steps;
     private ArrayList<Ingredient> ingredients;
-    private Bundle ingredientsStepsBundle;
+    private Bundle recipeBundle;
     private String ingredientStr="";
     private RecipeDetailedFragment  recipeDetailedFragment;
 
@@ -43,9 +44,10 @@ public class RecipeDetailedActivity extends AppCompatActivity
 
 
 
-        ingredientsStepsBundle=getIntent().getBundleExtra("IngredientsStepsBundle");
-        steps=ingredientsStepsBundle.getParcelableArrayList("Steps");
-        ingredients=ingredientsStepsBundle.getParcelableArrayList("Ingredients");
+        recipeBundle=getIntent().getBundleExtra("recipeBundle");
+        recipe=recipeBundle.getParcelable("Recipe");
+        steps=recipeBundle.getParcelableArrayList("Steps");
+        ingredients=recipeBundle.getParcelableArrayList("Ingredients");
 
         ingredientStepObjects=new ArrayList<>();
         ingredientStepObjects.add("Ingredients");

@@ -9,4 +9,6 @@
     <string name="restart">Restart</string>
     <string name="guess">Can you guess the composer?</string>
     <string name="notification_text">Press play to hear the piece!</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
