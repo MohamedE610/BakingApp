@@ -14,8 +14,9 @@
         android:layout_marginRight="0dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false" >
 
+    </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -46,14 +47,32 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment"
         android:id="@+id/step_description"
+        android:layout_marginBottom="15dp"
         />
-
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
     <Button
-        android:id="@+id/buttonA"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-         />
+        android:id="@+id/btnNext"
+        android:text="Next"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
 
-    </LinearLayout>
+        android:layout_alignParentLeft="true"
+
+         />
+            <Button
+                android:id="@+id/btnPrevious"
+                android:text="Previous"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+
+                android:layout_alignParentRight="true"
+                />
+          </RelativeLayout>
+
+     </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

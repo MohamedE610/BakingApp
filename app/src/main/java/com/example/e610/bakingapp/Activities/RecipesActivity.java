@@ -2,6 +2,10 @@ package com.example.e610.bakingapp.Activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.e610.bakingapp.Adapters.RecipeAdapter;
 import com.example.e610.bakingapp.Fragments.RecipesFragment;
+import com.example.e610.bakingapp.IdlingResource.SimpleIdlingResource;
 import com.example.e610.bakingapp.Models.Ingredient;
 import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.Models.Step;
@@ -36,17 +41,41 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     private  FetchData fetchRecipeData;
     private  RecipesFragment recipesFragment;
 
+
+
+    // The Idling Resource which will be null in production.
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
+
+    /**
+     * Only called from test, creates and returns a new {@link SimpleIdlingResource}.
+     */
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-
         MySharedPreferences.setUpMySharedPreferences(this,"widgetRecipe");
         Recipes=new ArrayList<>();
-        fetchRecipeData=new FetchData();
         recipesFragment=null;
         recipesFragment=new RecipesFragment();
+
+
+        // Get the IdlingResource instance
+        getIdlingResource();
+
+        fetchRecipeData=new FetchData(mIdlingResource);
+
 
         if(savedInstanceState==null){
             getSupportFragmentManager().beginTransaction().add(R.id.RecipeFragment,recipesFragment).commit();

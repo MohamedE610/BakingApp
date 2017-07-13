@@ -2,6 +2,10 @@ package com.example.e610.bakingapp.Activities;
 
 import android.content.Intent;
 import android.support.annotation.BoolRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +19,7 @@ import com.example.e610.bakingapp.Fragments.IngredientFragment;
 import com.example.e610.bakingapp.Fragments.RecipeDetailedFragment;
 import com.example.e610.bakingapp.Fragments.RecipesFragment;
 import com.example.e610.bakingapp.Fragments.StepFragment;
+import com.example.e610.bakingapp.IdlingResource.SimpleIdlingResource;
 import com.example.e610.bakingapp.Models.Ingredient;
 import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.Models.Step;
@@ -42,6 +47,10 @@ public class RecipeDetailedActivity extends AppCompatActivity
     private IngredientFragment ingredientFragment;
     private StepFragment stepFragment;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +66,6 @@ public class RecipeDetailedActivity extends AppCompatActivity
         ingredientStepObjects.add("Ingredients");
         ingredientStepObjects.addAll(steps);
         recipeDetailedFragment=new RecipeDetailedFragment();
-
 
         if(savedInstanceState==null){
             getSupportFragmentManager().beginTransaction().add(R.id.RecipeDetailedFragment,recipeDetailedFragment).commit();
@@ -115,6 +123,7 @@ public class RecipeDetailedActivity extends AppCompatActivity
         else {
 
             bundle.putParcelable("Step",steps.get(position-1));
+            bundle.putParcelableArrayList("steps",steps);
             if(!isTablet) {
                 intent = new Intent(this, StepActivity.class);
                 intent.putExtra("StepBundle", bundle);

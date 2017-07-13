@@ -17,6 +17,7 @@ import android.support.v7.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.e610.bakingapp.Activities.StepActivity;
@@ -48,8 +49,12 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
     private TextView stepIDText;
     private TextView stepShortDescriptionText;
     private TextView stepDescriptionText;
-    Step step;
+    private Button btnNext;
+    private Button btnPrevious;
+    private Step step;
     private Bundle bundle;
+    private int currentIndex=0;
+    ArrayList<Step> steps;
 
     /************************************************/
     private static final String TAG = StepFragment.class.getSimpleName();
@@ -67,16 +72,61 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_step, container, false);
 
         bundle=getArguments();
         step=bundle.getParcelable("Step");
+        steps=bundle.getParcelableArrayList("steps");
+        if(step.getId()!=null)
+           currentIndex=Integer.valueOf(step.getId());
         stepIDText=(TextView) view.findViewById(R.id.step_id);
         stepShortDescriptionText=(TextView) view.findViewById(R.id.step_shortDescription);
         stepDescriptionText=(TextView) view.findViewById(R.id.step_description);
+        btnNext=(Button) view.findViewById(R.id.btnNext);
+        btnPrevious=(Button) view.findViewById(R.id.btnPrevious);
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(getActivity(),StepActivity.class);
+                Bundle b =new Bundle();
+                if(currentIndex!=steps.size()-1) {
+                    b.putParcelable("Step", steps.get(currentIndex + 1));
+                    b.putParcelableArrayList("steps",steps);
+                }
+                else{
+                    b.putParcelable("Step",steps.get(currentIndex));
+                    b.putParcelableArrayList("steps",steps);
+                }
+
+                intent.putExtra("StepBundle",b);
+                startActivity(intent);
+            }
+        });
+
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(getActivity(),StepActivity.class);
+                Bundle b =new Bundle();
+                if(currentIndex>0) {
+                    b.putParcelable("Step", steps.get(currentIndex - 1));
+                    b.putParcelableArrayList("steps",steps);
+                }
+                else{
+                    b.putParcelable("Step",steps.get(currentIndex));
+                    b.putParcelableArrayList("steps",steps);
+                }
+
+                intent.putExtra("StepBundle",b);
+                startActivity(intent);
+            }
+        });
 
         stepIDText.setText(step.getId());
         stepShortDescriptionText.setText(step.getShortDescription());
