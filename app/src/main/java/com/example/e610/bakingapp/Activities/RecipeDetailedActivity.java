@@ -95,6 +95,7 @@ public class RecipeDetailedActivity extends AppCompatActivity
         isTablet=getResources().getBoolean(R.bool.isTablet);
 
         if(position==0){
+/*
 
             ingredientStr="";
             int index=0;
@@ -104,7 +105,8 @@ public class RecipeDetailedActivity extends AppCompatActivity
                 index++;
             }
 
-            bundle.putString("IngredientStr",ingredientStr);
+*/
+            bundle.putParcelableArrayList("Ingredients",ingredients);
 
             if(!isTablet) {
                 intent = new Intent(this, IngredientActivity.class);

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_shape"
+    android:id="@+id/ingredientInfoContainer"
+    android:padding="5dp"
+    android:weightSum="1">
+<RelativeLayout
+    android:layout_height="wrap_content"
+    android:layout_width="0dp"
+    android:layout_weight="0.7"
+    android:layout_margin="5dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:id="@+id/ingredient_name_widget"
+        android:text="aaaaaaaaaaaaaaaaaaaaaasssssssssssssssssssssddddddddddddddd"
+
+        />
+</RelativeLayout>
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_width="0dp"
+    android:layout_weight="0.3"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asd"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:id="@+id/ingredient_quantity_widget"
+        android:layout_marginRight="3dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asd"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:id="@+id/ingredient_measure_widget"
+        android:layout_marginRight="3dp"/>
+
+</LinearLayout>
+</LinearLayout>

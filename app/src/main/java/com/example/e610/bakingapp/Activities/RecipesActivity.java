@@ -1,5 +1,7 @@
 package com.example.e610.bakingapp.Activities;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -20,6 +22,7 @@ import com.example.e610.bakingapp.IdlingResource.SimpleIdlingResource;
 import com.example.e610.bakingapp.Models.Ingredient;
 import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.Models.Step;
+import com.example.e610.bakingapp.NewAppWidget;
 import com.example.e610.bakingapp.R;
 import com.example.e610.bakingapp.Utils.FetchData;
 import com.example.e610.bakingapp.Utils.MySharedPreferences;
@@ -108,6 +111,13 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
 
         MySharedPreferences.SaveLastRecipe(recipe);
 
+        Intent in  = new Intent(RecipesActivity.this, NewAppWidget.class);
+        in.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        int ids[] = AppWidgetManager.getInstance( getApplication()).getAppWidgetIds(new ComponentName(getApplication(), NewAppWidget.class));
+        AppWidgetManager.getInstance(RecipesActivity.this).notifyAppWidgetViewDataChanged(ids,R.id.IngredientsRecyclerViewWidget);
+        in.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(in);
+
         startActivity(intent);
 
         Toast.makeText(RecipesActivity.this,"Hello ^__^",Toast.LENGTH_SHORT).show();
@@ -116,24 +126,24 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     @Override
     public void OnSuccess(String JsonData) {
 
-        Recipes = ParsingJson.PasreData(JsonData);
-        recipeAdapter = new RecipeAdapter(Recipes, RecipesActivity.this);
-        //recipeAdapter.setClickListener(this);
-        RecipeRecyclerView=(RecyclerView)findViewById(R.id.RecipesRecyclerView);
-        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
-        if(isTablet)
-            RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this,2));
-        else
-            RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this,1));
+     try {
+         Recipes = ParsingJson.PasreData(JsonData);
+         recipeAdapter = new RecipeAdapter(Recipes, RecipesActivity.this);
+         //recipeAdapter.setClickListener(this);
+         RecipeRecyclerView = (RecyclerView) findViewById(R.id.RecipesRecyclerView);
+         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+         if (isTablet)
+             RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this, 2));
+         else
+             RecipeRecyclerView.setLayoutManager(new GridLayoutManager(RecipesActivity.this, 1));
 
-        RecipeRecyclerView.setAdapter(recipeAdapter);
-        recipeAdapter.setClickListener(this);
+         RecipeRecyclerView.setAdapter(recipeAdapter);
+         recipeAdapter.setClickListener(this);
 
-        if(MySharedPreferences.IsFirstTime())
-        {
-            MySharedPreferences.FirstTime();
-            MySharedPreferences.SaveLastRecipe(Recipes.get(0));
-        }
+         if (MySharedPreferences.IsFirstTime()) {
+             MySharedPreferences.FirstTime();
+             MySharedPreferences.SaveLastRecipe(Recipes.get(0));
+         }
 /*
         recipeAdapter.setClickListener(new RecipeAdapter.RecyclerViewClickListener() {
             @Override
@@ -143,6 +153,10 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         });
 */
 
+      }
+     catch (Exception ex){
+         Toast.makeText(RecipesActivity.this,"Internet is very weak",Toast.LENGTH_SHORT);
+       }
     }
 
     @Override

@@ -17,9 +17,11 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 /**
  * Created by E610 on 7/13/2017.
@@ -47,14 +49,27 @@ public class StepActivityTest {
 
     @Test
     public void idlingResourceTest() {
+
+        int CurrentIndex=0;
+
         onView(ViewMatchers.withId(R.id.RecipesRecyclerView))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(CurrentIndex, click()));
 
         onView(ViewMatchers.withId(R.id.IngredientStepsRecyclerView))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(CurrentIndex+1, click()));
+        //CurrentIndex+1 as index 0 is "ingredients"
 
         onView(withId(R.id.step_description)).check(matches(isDisplayed()));
 
+        onView(withId(R.id.btnNext)).perform(click());
+        CurrentIndex++;
+
+        onView(withId(R.id.step_id)).check(matches(withText("Step "+CurrentIndex)));
+
+        onView(withId(R.id.btnPrevious)).perform(scrollTo()).perform(click());
+        CurrentIndex--;
+
+        onView(withId(R.id.step_id)).check(matches(withText("Step "+CurrentIndex)));
 
     }
 

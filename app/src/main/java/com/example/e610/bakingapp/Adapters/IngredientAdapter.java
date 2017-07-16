@@ -7,28 +7,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.e610.bakingapp.Models.Ingredient;
-import com.example.e610.bakingapp.Models.Step;
+import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 
-public class IngredientStepAdapter extends RecyclerView.Adapter<IngredientStepAdapter.MyViewHolder>  {
-    ArrayList<Object> ingredientAndSteps;
+public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.MyViewHolder>  {
+    ArrayList<Ingredient>  ingredients;
     Context context;
     int  LastPosition=-1;
     RecyclerViewClickListener ClickListener ;
-    public IngredientStepAdapter(){}
-    public IngredientStepAdapter(ArrayList<Object> ingredientAndSteps, Context context){
-        this.ingredientAndSteps=new ArrayList<>();
-        this.ingredientAndSteps=ingredientAndSteps;
+    public IngredientAdapter(){}
+    public IngredientAdapter(ArrayList<Ingredient>  ingredients, Context context){
+        this.ingredients=new ArrayList<>();
+        this.ingredients=ingredients;
         this.context=context;
     }
 
@@ -37,55 +35,38 @@ public class IngredientStepAdapter extends RecyclerView.Adapter<IngredientStepAd
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_step_item,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_row_item_widget,parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        if(position==0) {
-            String ingredientStr ;
-            ingredientStr=(String) ingredientAndSteps.get(position);
-            holder.ingredientAndStepName.setText(ingredientStr);
-        }
-        else{
-            Step step;
-            step=(Step)ingredientAndSteps.get(position);
-            if(!step.getThumbnailURL().equals("")) {
-                Picasso.with(context).load(step.getThumbnailURL()).placeholder(R.drawable.loadingicon)
-                        .error(R.drawable.error).into(holder.ingredientAndStepImageView);
-            }
-            else{
-                Picasso.with(context).load(R.drawable.bowl).placeholder(R.drawable.loadingicon)
-                        .error(R.drawable.error).into(holder.ingredientAndStepImageView);
-            }
-            holder.ingredientAndStepName.setText(step.getShortDescription());
-        }
-
-
-        setAnimation(holder.ingredientAndStepContainer,position);
+        holder.ingredientName.setText(ingredients.get(position).getName());
+        holder.ingredientQuantity.setText(ingredients.get(position).getQuantity());
+        holder.ingredientMeasure.setText(ingredients.get(position).getMeasure());
+        setAnimation(holder.ingredientInfoContainer,position);
 
     }
 
     @Override
     public int getItemCount() {
-        return ingredientAndSteps.size();
+        return ingredients.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-
-
-        TextView ingredientAndStepName;
-        ImageView ingredientAndStepImageView;
-        LinearLayout ingredientAndStepContainer;
+        TextView ingredientName;
+        TextView ingredientMeasure;
+        TextView ingredientQuantity;
+        LinearLayout ingredientInfoContainer;
         public MyViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            ingredientAndStepName=(TextView)itemView.findViewById(R.id.ingredient_step_name);
-            ingredientAndStepImageView=(ImageView)itemView.findViewById(R.id.ingredient_step_image);
-            ingredientAndStepContainer=(LinearLayout)itemView.findViewById(R.id.ingredient_step_container);
+            ingredientName=(TextView)itemView.findViewById(R.id.ingredient_name_widget);
+            ingredientMeasure=(TextView)itemView.findViewById(R.id.ingredient_measure_widget);
+            ingredientQuantity=(TextView)itemView.findViewById(R.id.ingredient_quantity_widget);
+            ingredientInfoContainer=(LinearLayout)itemView.findViewById(R.id.ingredientInfoContainer );
         }
 
         @Override
@@ -96,7 +77,7 @@ public class IngredientStepAdapter extends RecyclerView.Adapter<IngredientStepAd
 
         public void clearAnimation()
         {
-            ingredientAndStepContainer.clearAnimation();
+            ingredientInfoContainer.clearAnimation();
         }
     }
 

@@ -92,19 +92,15 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(getActivity(),StepActivity.class);
                 Bundle b =new Bundle();
                 if(currentIndex!=steps.size()-1) {
                     b.putParcelable("Step", steps.get(currentIndex + 1));
                     b.putParcelableArrayList("steps",steps);
-                }
-                else{
-                    b.putParcelable("Step",steps.get(currentIndex));
-                    b.putParcelableArrayList("steps",steps);
+                    StepFragment  stepFragment=new StepFragment();
+                    stepFragment.setArguments(b);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.StepFragment,stepFragment).commit();
                 }
 
-                intent.putExtra("StepBundle",b);
-                startActivity(intent);
             }
         });
 
@@ -112,23 +108,19 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(getActivity(),StepActivity.class);
+
                 Bundle b =new Bundle();
                 if(currentIndex>0) {
                     b.putParcelable("Step", steps.get(currentIndex - 1));
                     b.putParcelableArrayList("steps",steps);
+                    StepFragment  stepFragment=new StepFragment();
+                    stepFragment.setArguments(b);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.StepFragment,stepFragment).commit();
                 }
-                else{
-                    b.putParcelable("Step",steps.get(currentIndex));
-                    b.putParcelableArrayList("steps",steps);
-                }
-
-                intent.putExtra("StepBundle",b);
-                startActivity(intent);
             }
         });
 
-        stepIDText.setText(step.getId());
+        stepIDText.setText("Step "+step.getId());
         stepShortDescriptionText.setText(step.getShortDescription());
         stepDescriptionText.setText(step.getDescription());
 

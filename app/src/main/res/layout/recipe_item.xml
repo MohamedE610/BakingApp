@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/RecipeNameContainer"
-    android:padding="5dp">
-
-    <TextView
-        android:id="@+id/RecipeName"
+    android:padding="5dp"
+    android:background="@drawable/border_shape"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:id="@+id/recipe_image"
+        android:src="@drawable/cupcake"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+</RelativeLayout>
+    <TextView
+        android:id="@+id/RecipeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitStart"
-
         android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/border_shape"
         android:textSize="50dp"
         android:text="asd"
-        android:padding="15dp"
+        android:padding="10dp"
         android:textColor="#000000"
+
         />
 
 
-</RelativeLayout>
+</LinearLayout>

@@ -82,7 +82,7 @@ class  GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
             Log.d("haha","hhhhhhhhhhhhhhhhhhhhhhhhhhhh");
         }
 
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_item);
+        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_row_item_widget);
 
         if(recipe!=null) {
             Log.d("haha",recipe.getIngredients().get(position).getName());

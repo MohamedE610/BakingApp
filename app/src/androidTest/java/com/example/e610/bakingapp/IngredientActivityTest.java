@@ -53,7 +53,7 @@ public class IngredientActivityTest {
         onView(ViewMatchers.withId(R.id.IngredientStepsRecyclerView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        onView(withId(R.id.IngredientText)).check(matches(isDisplayed()));
+        onView(withId(R.id.IngredientRecyclerView)).check(matches(isDisplayed()));
 
 
     }

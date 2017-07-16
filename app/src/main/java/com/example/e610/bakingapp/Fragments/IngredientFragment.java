@@ -3,19 +3,29 @@ package com.example.e610.bakingapp.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.e610.bakingapp.Adapters.IngredientAdapter;
+import com.example.e610.bakingapp.Adapters.RecipeAdapter;
+import com.example.e610.bakingapp.Models.Ingredient;
+import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.R;
 import com.example.e610.bakingapp.Utils.SendViewToActivity;
+
+import java.util.ArrayList;
 
 public class IngredientFragment extends Fragment {
 
      //Global Variable
-    private TextView ingredientText;
-    private String ingredientStr="";
+    private RecyclerView IngredientRecyclerView;
+    private ArrayList<Ingredient> Ingredients;
+    private IngredientAdapter ingredientAdapter;
     private Bundle bundle;
 
     /****************************/
@@ -37,11 +47,11 @@ public class IngredientFragment extends Fragment {
         /****************************/
 
         bundle=getArguments();
-        ingredientStr=bundle.getString("IngredientStr");
-        ingredientText=(TextView) view.findViewById(R.id.IngredientText);
-        ingredientText.setText(ingredientStr);
-
-
+        Ingredients=bundle.getParcelableArrayList("Ingredients");
+        ingredientAdapter=new IngredientAdapter(Ingredients,getContext());
+        IngredientRecyclerView=(RecyclerView)view.findViewById(R.id.IngredientRecyclerView);
+        IngredientRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+        IngredientRecyclerView.setAdapter(ingredientAdapter);
 
         return view ;
     }

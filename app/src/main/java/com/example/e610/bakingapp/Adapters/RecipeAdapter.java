@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
@@ -39,6 +43,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.recipeName.setText(recipes.get(position).getName());
+        String str=recipes.get(position).getImage();
+        if(!recipes.get(position).getImage().equals("")) {
+            Picasso.with(context).load(recipes.get(position).getImage()).placeholder(R.drawable.loadingicon)
+                    .error(R.drawable.error).into(holder.recipeImage);
+        }
+        else{
+            Picasso.with(context).load(R.drawable.cupcake).placeholder(R.drawable.loadingicon)
+                    .error(R.drawable.error).into(holder.recipeImage);
+        }
+
+
         setAnimation(holder.recipeNameContainer,position);
 
     }
@@ -51,12 +66,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView recipeName;
-        RelativeLayout recipeNameContainer;
+        ImageView recipeImage;
+        LinearLayout recipeNameContainer;
         public MyViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             recipeName=(TextView)itemView.findViewById(R.id.RecipeName);
-            recipeNameContainer=(RelativeLayout)itemView.findViewById(R.id.RecipeNameContainer);
+            recipeImage=(ImageView) itemView.findViewById(R.id.recipe_image);
+            recipeNameContainer=(LinearLayout)itemView.findViewById(R.id.RecipeNameContainer);
         }
 
         @Override
