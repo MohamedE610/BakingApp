@@ -1,20 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.e610.bakingapp.Fragments.IngredientFragment"
-    android:background="@drawable/border_shape"
+    android:background="#b9ae9b"
+    android:orientation="vertical"
     >
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredients"
+        android:background="#615132"
+        android:textSize="35dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold|italic"
+        />
+
     <!-- TODO: Update blank fragment layout -->
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/IngredientRecyclerView"
+        android:id="@+id/ingredient_recyclerView"
         />
-    </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

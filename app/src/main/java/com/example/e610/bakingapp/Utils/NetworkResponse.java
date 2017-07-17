@@ -5,5 +5,5 @@ public interface NetworkResponse {
 
 
     void OnSuccess(String JsonData);
-    void OnUpdate(boolean IsDataReceived);
+    void OnFailure(boolean Failure);
 }

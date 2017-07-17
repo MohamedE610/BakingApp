@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.R;
@@ -45,8 +44,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         holder.recipeName.setText(recipes.get(position).getName());
         String str=recipes.get(position).getImage();
         if(!recipes.get(position).getImage().equals("")) {
-            Picasso.with(context).load(recipes.get(position).getImage()).placeholder(R.drawable.loadingicon)
-                    .error(R.drawable.error).into(holder.recipeImage);
+            Picasso.with(context).load(recipes.get(position).getImage()).into(holder.recipeImage);
         }
         else{
             Picasso.with(context).load(R.drawable.cupcake).placeholder(R.drawable.loadingicon)
@@ -71,7 +69,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
         public MyViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            recipeName=(TextView)itemView.findViewById(R.id.RecipeName);
+            recipeName=(TextView)itemView.findViewById(R.id.recipe_name);
             recipeImage=(ImageView) itemView.findViewById(R.id.recipe_image);
             recipeNameContainer=(LinearLayout)itemView.findViewById(R.id.RecipeNameContainer);
         }

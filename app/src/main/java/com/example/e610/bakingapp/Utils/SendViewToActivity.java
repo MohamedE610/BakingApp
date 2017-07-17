@@ -7,5 +7,5 @@ import android.view.View;
  */
 public interface SendViewToActivity {
 
-    public void sendView(View view);
+      void sendView(View view);
 }

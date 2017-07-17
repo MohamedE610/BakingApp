@@ -4,19 +4,15 @@ package com.example.e610.bakingapp.Fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 
 import com.example.e610.bakingapp.Adapters.IngredientAdapter;
-import com.example.e610.bakingapp.Adapters.RecipeAdapter;
 import com.example.e610.bakingapp.Models.Ingredient;
-import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.R;
-import com.example.e610.bakingapp.Utils.SendViewToActivity;
 
 import java.util.ArrayList;
 
@@ -28,9 +24,6 @@ public class IngredientFragment extends Fragment {
     private IngredientAdapter ingredientAdapter;
     private Bundle bundle;
 
-    /****************************/
-    //SendViewToActivity sendViewToActivity;
-    /****************************/
 
      public IngredientFragment() {
         // Required empty public constructor
@@ -41,21 +34,22 @@ public class IngredientFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_ingredient, container, false);
-        /****************************/
-        // sendViewToActivity= (SendViewToActivity) getActivity();
-        //sendViewToActivity.sendView(view);
-        /****************************/
 
-        bundle=getArguments();
-        Ingredients=bundle.getParcelableArrayList("Ingredients");
-        ingredientAdapter=new IngredientAdapter(Ingredients,getContext());
-        IngredientRecyclerView=(RecyclerView)view.findViewById(R.id.IngredientRecyclerView);
-        IngredientRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
-        IngredientRecyclerView.setAdapter(ingredientAdapter);
+        setUpRecyclerView(view);
 
         return view ;
     }
 
+    private void setUpRecyclerView(View view) {
+
+        bundle=getArguments();
+        Ingredients=bundle.getParcelableArrayList("Ingredients");
+        ingredientAdapter=new IngredientAdapter(Ingredients,getContext());
+        IngredientRecyclerView=(RecyclerView)view.findViewById(R.id.ingredient_recyclerView);
+        IngredientRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+        IngredientRecyclerView.setAdapter(ingredientAdapter);
+
+    }
 
 
 }

@@ -38,14 +38,14 @@ public class IntentTest {
     @Test
     public void triggerIntentTest() {
 
-        onView(ViewMatchers.withId(R.id.RecipesRecyclerView))
+        onView(ViewMatchers.withId(R.id.recipes_recyclerView))
                 .check(matches(isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
         intended(hasComponent("com.example.e610.bakingapp.Activities.RecipeDetailedActivity"));
 
 
-        onView(ViewMatchers.withId(R.id.IngredientStepsRecyclerView))
+        onView(ViewMatchers.withId(R.id.ingredient_steps_recyclerView))
                 .check(matches(isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
@@ -53,7 +53,7 @@ public class IntentTest {
 
         pressBack();
 
-        onView(ViewMatchers.withId(R.id.IngredientStepsRecyclerView))
+        onView(ViewMatchers.withId(R.id.ingredient_steps_recyclerView))
                 .check(matches(isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 

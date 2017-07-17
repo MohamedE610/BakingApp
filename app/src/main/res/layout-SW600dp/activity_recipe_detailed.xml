@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_weight="0.4"
-        android:id="@+id/RecipeDetailedFragment"
+        android:id="@+id/recipe_detailed_fragment"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_weight="0.6"
-        android:id="@+id/StepFragment"
+        android:id="@+id/step_fragment"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 

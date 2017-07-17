@@ -4,7 +4,9 @@ package com.example.e610.bakingapp.Utils;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.e610.bakingapp.Activities.RecipesActivity;
 import com.example.e610.bakingapp.IdlingResource.SimpleIdlingResource;
 
 import java.io.BufferedReader;
@@ -24,7 +26,6 @@ public class FetchData extends AsyncTask<Void,Void,String> {
     @Nullable final SimpleIdlingResource idlingResource;
 
     public static String BasicUrl = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
-    //public static String BasicUrl ="http://alitaha.net/nageh/get_product_details.php?barcode=1201452012510";
 
     public FetchData(
             @Nullable final SimpleIdlingResource idlingResource) {
@@ -93,9 +94,22 @@ public class FetchData extends AsyncTask<Void,Void,String> {
     @Override
     protected String doInBackground(Void... voids) {
         String JsonData = "";
+
         if(idlingResource!=null)
             idlingResource.setIdleState(false);
-         JsonData=Fetching_Data(BasicUrl);
+
+
+        try {
+
+            JsonData = Fetching_Data(BasicUrl);
+
+            if(JsonData.equals("")||JsonData==null) {
+                networkResponse.OnFailure(true);
+            }
+
+        }catch (Exception ex){
+            networkResponse.OnFailure(true);
+        }
 
         return JsonData;
     }

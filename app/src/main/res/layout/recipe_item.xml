@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/RecipeNameContainer"
     android:padding="5dp"
-    android:background="@drawable/border_shape"
+    android:background="@drawable/border"
     >
 <RelativeLayout
     android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         />
 </RelativeLayout>
     <TextView
-        android:id="@+id/RecipeName"
+        android:id="@+id/recipe_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -30,6 +30,7 @@
         android:text="asd"
         android:padding="10dp"
         android:textColor="#000000"
+        android:textStyle="bold|italic"
 
         />
 

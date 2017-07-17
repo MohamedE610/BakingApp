@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.e610.bakingapp.Models.Ingredient;
-import com.example.e610.bakingapp.Models.Recipe;
 import com.example.e610.bakingapp.R;
 
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.My
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_row_item_widget,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_item_and_item_widget,parent,false);
         return new MyViewHolder(view);
     }
 

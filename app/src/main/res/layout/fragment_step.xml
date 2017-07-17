@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.e610.bakingapp.Fragments.StepFragment"
     android:orientation="vertical"
-    android:nestedScrollingEnabled="false">
+    android:nestedScrollingEnabled="false"
+    android:background="#b9ae9b">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/playerView"
+        android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
@@ -32,15 +33,41 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment"
         android:id="@+id/step_id"
+        android:textSize="30dp"
+        android:background="#615132"
+        android:layout_marginBottom="20dp"
+        android:textColor="#000000"
+        android:textStyle="bold|italic"
         />
-
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text= "@string/short_description"
+                android:textSize="30dp"
+                android:background="#615132"
+                android:textColor="#000000"
+                android:textStyle="bold|italic"
+                />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment"
-        android:id="@+id/step_shortDescription"
+        android:id="@+id/step_short_description"
+        android:layout_marginBottom="10dp"
+        android:textColor="#000000"
+        android:textStyle="bold|italic"
+        android:textSize="20dp"
         />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text= "@string/description"
+                android:textSize="30dp"
+                android:background="#615132"
+                android:textColor="#000000"
+                android:textStyle="bold|italic"
+                />
 
     <TextView
         android:layout_width="match_parent"
@@ -48,27 +75,33 @@
         android:text="@string/hello_blank_fragment"
         android:id="@+id/step_description"
         android:layout_marginBottom="15dp"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:textStyle="bold|italic"
         />
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <Button
-        android:id="@+id/btnNext"
+        android:id="@+id/next_btn"
         android:text="Next"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-
+        android:background="@drawable/btn_selector"
         android:layout_alignParentLeft="true"
-
-         />
+        android:forceHasOverlappingRendering="false"
+        android:textColor="#000000"
+        android:textStyle="bold|italic"/>
             <Button
-                android:id="@+id/btnPrevious"
+                android:id="@+id/previous_btn"
                 android:text="Previous"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-
+                android:background="@drawable/btn_selector"
                 android:layout_alignParentRight="true"
+                android:textColor="#000000"
+                android:textStyle="bold|italic"
                 />
           </RelativeLayout>
 

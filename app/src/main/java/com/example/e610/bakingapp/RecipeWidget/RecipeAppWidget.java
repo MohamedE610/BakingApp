@@ -1,4 +1,4 @@
-package com.example.e610.bakingapp;
+package com.example.e610.bakingapp.RecipeWidget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,16 +8,15 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.example.e610.bakingapp.Activities.RecipeDetailedActivity;
 import com.example.e610.bakingapp.Activities.RecipesActivity;
-import com.example.e610.bakingapp.Fragments.RecipeDetailedFragment;
 import com.example.e610.bakingapp.Models.Recipe;
+import com.example.e610.bakingapp.R;
 import com.example.e610.bakingapp.Utils.MySharedPreferences;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class NewAppWidget extends AppWidgetProvider {
+public class RecipeAppWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -29,21 +28,19 @@ public class NewAppWidget extends AppWidgetProvider {
             widgetText =recipe.getName()+" ^_^ ";
         else
           widgetText ="No Data Available yet"+" ^_^ ";
-        Log.d("rr",widgetText.toString());
+        Log.d("hahaWidget",widgetText.toString());
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget);
         views.setTextViewText(R.id.appwidget_text, widgetText);
         if(recipe!=null){
-            Intent in = new Intent(context, GridWidgetService.class);
-            views.setRemoteAdapter(R.id.IngredientsRecyclerViewWidget, in);
+            Intent in = new Intent(context, IngredientListWidgetService.class);
+            views.setRemoteAdapter(R.id.ingredients_listView_widget, in);
         }
 
         Intent  intent = new Intent(context,  RecipesActivity.class);
         PendingIntent  pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
 
-
-        //appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.IngredientsRecyclerViewWidget);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

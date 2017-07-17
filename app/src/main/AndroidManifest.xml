@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.e610.bakingapp">
+
     -- Permissions --
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/cupcake"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        --Activities--
         <activity android:name=".Activities.RecipesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +25,7 @@
         <activity android:name=".Activities.StepActivity" />
         <activity android:name=".Activities.IngredientActivity" />
 
+        --Receivers--
         <receiver android:name=".Fragments.StepFragment$MediaReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
@@ -29,7 +33,7 @@
         </receiver>
 
 
-        <receiver android:name=".NewAppWidget">
+        <receiver android:name=".RecipeWidget.RecipeAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -39,9 +43,12 @@
                 android:resource="@xml/new_app_widget_info" />
         </receiver>
 
+
+        --Services--
         <service
-            android:name=".GridWidgetService"
+            android:name=".RecipeWidget.IngredientListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
 
     </application>
 

@@ -9,10 +9,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.e610.bakingapp.Models.Ingredient;
+
 import com.example.e610.bakingapp.Models.Step;
 import com.example.e610.bakingapp.R;
 import com.squareup.picasso.Picasso;
@@ -53,8 +52,7 @@ public class IngredientStepAdapter extends RecyclerView.Adapter<IngredientStepAd
             Step step;
             step=(Step)ingredientAndSteps.get(position);
             if(!step.getThumbnailURL().equals("")) {
-                Picasso.with(context).load(step.getThumbnailURL()).placeholder(R.drawable.loadingicon)
-                        .error(R.drawable.error).into(holder.ingredientAndStepImageView);
+                Picasso.with(context).load(step.getThumbnailURL()).into(holder.ingredientAndStepImageView);
             }
             else{
                 Picasso.with(context).load(R.drawable.bowl).placeholder(R.drawable.loadingicon)

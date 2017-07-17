@@ -4,8 +4,8 @@
     android:padding="@dimen/widget_margin"
     android:orientation="vertical"
     android:clickable="true"
-    android:contextClickable="true">
-
+    android:contextClickable="true"
+    android:background="#b9ae9b">
 
     <TextView
         android:id="@+id/appwidget_text"
@@ -15,8 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
+        android:background="#615132"
         android:contentDescription="@string/appwidget_text"
         android:text="@string/appwidget_text"
         android:textColor="#ffffff"
@@ -28,7 +27,9 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/IngredientsRecyclerViewWidget"/>
+        android:id="@+id/ingredients_listView_widget"/>
 
+
+    <!--android:background="#09C"-->
 
 </LinearLayout>

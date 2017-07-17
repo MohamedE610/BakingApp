@@ -46,14 +46,14 @@ public class IngredientActivityTest {
     }
 
     @Test
-    public void idlingResourceTest() {
-        onView(ViewMatchers.withId(R.id.RecipesRecyclerView))
+    public void ingredientActivityTest() {
+        onView(ViewMatchers.withId(R.id.recipes_recyclerView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
-        onView(ViewMatchers.withId(R.id.IngredientStepsRecyclerView))
+        onView(ViewMatchers.withId(R.id.ingredient_steps_recyclerView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        onView(withId(R.id.IngredientRecyclerView)).check(matches(isDisplayed()));
+        onView(withId(R.id.ingredient_recyclerView)).check(matches(isDisplayed()));
 
 
     }

@@ -47,11 +47,11 @@ public class RecipeDetailedActivityTeat {
     }
 
     @Test
-    public void idlingResourceTest() {
-        onView(withId(R.id.RecipesRecyclerView))
+    public void recipeDetailedActivityTeat() {
+        onView(withId(R.id.recipes_recyclerView ))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
-        onView(withId(R.id.IngredientStepsRecyclerView))
+        onView(withId(R.id.ingredient_steps_recyclerView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
         onView(withId(R.id.step_id)).check(matches(isDisplayed()));

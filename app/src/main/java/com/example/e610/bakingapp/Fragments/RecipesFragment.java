@@ -13,9 +13,11 @@ import com.example.e610.bakingapp.R;
 
 public class RecipesFragment extends Fragment {
 
+
     public RecipesFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

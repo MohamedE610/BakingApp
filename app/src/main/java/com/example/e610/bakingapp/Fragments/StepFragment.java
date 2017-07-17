@@ -56,11 +56,10 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
     private int currentIndex=0;
     ArrayList<Step> steps;
 
-    /************************************************/
     private static final String TAG = StepFragment.class.getSimpleName();
-    private SimpleExoPlayer mExoPlayer;
-    private SimpleExoPlayerView mPlayerView;
-    private static MediaSessionCompat mMediaSession;
+    private SimpleExoPlayer  simpleExoPlayer;
+    private SimpleExoPlayerView simpleExoPlayerView;
+    private static MediaSessionCompat  mediaSessionCompat;
     private PlaybackStateCompat.Builder mStateBuilder;
     private NotificationManager mNotificationManager;
 
@@ -77,28 +76,21 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_step, container, false);
 
-        bundle=getArguments();
-        step=bundle.getParcelable("Step");
-        steps=bundle.getParcelableArrayList("steps");
-        if(step.getId()!=null)
-           currentIndex=Integer.valueOf(step.getId());
-        stepIDText=(TextView) view.findViewById(R.id.step_id);
-        stepShortDescriptionText=(TextView) view.findViewById(R.id.step_shortDescription);
-        stepDescriptionText=(TextView) view.findViewById(R.id.step_description);
-        btnNext=(Button) view.findViewById(R.id.btnNext);
-        btnPrevious=(Button) view.findViewById(R.id.btnPrevious);
+        initializeGlobalVariables(view);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Bundle b =new Bundle();
-                if(currentIndex!=steps.size()-1) {
-                    b.putParcelable("Step", steps.get(currentIndex + 1));
+                if(currentIndex<steps.size()-1) {
+                    currentIndex++;
+                    b.putParcelable("Step", steps.get(currentIndex));
                     b.putParcelableArrayList("steps",steps);
+                    b.putInt("currentIndex",currentIndex);
                     StepFragment  stepFragment=new StepFragment();
                     stepFragment.setArguments(b);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.StepFragment,stepFragment).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.step_fragment ,stepFragment).commit();
                 }
 
             }
@@ -108,14 +100,15 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
             @Override
             public void onClick(View view) {
 
-
                 Bundle b =new Bundle();
                 if(currentIndex>0) {
-                    b.putParcelable("Step", steps.get(currentIndex - 1));
+                    currentIndex--;
+                    b.putParcelable("Step", steps.get(currentIndex));
                     b.putParcelableArrayList("steps",steps);
+                    b.putInt("currentIndex",currentIndex);
                     StepFragment  stepFragment=new StepFragment();
                     stepFragment.setArguments(b);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.StepFragment,stepFragment).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.step_fragment,stepFragment).commit();
                 }
             }
         });
@@ -126,8 +119,8 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
 
 
         // Initialize the player view.
-        mPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.playerView);
-        mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource
+        simpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.player_view);
+        simpleExoPlayerView.setDefaultArtwork(BitmapFactory.decodeResource
                 (getResources(), R.drawable.question_mark));
 
         // Initialize the Media Session.
@@ -140,6 +133,19 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
         return view;
     }
 
+    private void initializeGlobalVariables(View view) {
+        bundle=getArguments();
+        step=bundle.getParcelable("Step");
+        steps=bundle.getParcelableArrayList("steps");
+        currentIndex=bundle.getInt("currentIndex");
+        stepIDText=(TextView) view.findViewById(R.id.step_id);
+        stepShortDescriptionText=(TextView) view.findViewById(R.id.step_short_description);
+        stepDescriptionText=(TextView) view.findViewById(R.id.step_description);
+        btnNext=(Button) view.findViewById(R.id.next_btn);
+        btnPrevious=(Button) view.findViewById(R.id.previous_btn);
+
+    }
+
 
     /**
      * Initializes the Media Session to be enabled with media buttons, transport controls, callbacks
@@ -148,15 +154,15 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
     private void initializeMediaSession() {
 
         // Create a MediaSessionCompat.
-        mMediaSession = new MediaSessionCompat(getContext(), TAG);
+        mediaSessionCompat = new MediaSessionCompat(getContext(), TAG);
 
         // Enable callbacks from MediaButtons and TransportControls.
-        mMediaSession.setFlags(
+        mediaSessionCompat.setFlags(
                 MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
                         MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
 
         // Do not let MediaButtons restart the player when the app is not visible.
-        mMediaSession.setMediaButtonReceiver(null);
+        mediaSessionCompat.setMediaButtonReceiver(null);
 
         // Set an initial PlaybackState with ACTION_PLAY, so media buttons can start the player.
         mStateBuilder = new PlaybackStateCompat.Builder()
@@ -166,14 +172,14 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
                                 PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS |
                                 PlaybackStateCompat.ACTION_PLAY_PAUSE);
 
-        mMediaSession.setPlaybackState(mStateBuilder.build());
+        mediaSessionCompat.setPlaybackState(mStateBuilder.build());
 
 
         // MySessionCallback has methods that handle callbacks from a media controller.
-        mMediaSession.setCallback(new MySessionCallback());
+        mediaSessionCompat.setCallback(new MySessionCallback());
 
         // Start the Media Session since the activity is active.
-        mMediaSession.setActive(true);
+        mediaSessionCompat.setActive(true);
 
     }
 
@@ -210,15 +216,13 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
         PendingIntent contentPendingIntent = PendingIntent.getActivity
                 (getContext(), 0, new Intent(getContext(), StepFragment.class), 0);
 
-        builder.setContentTitle(getString(R.string.guess))
-                .setContentText(getString(R.string.notification_text))
-                .setContentIntent(contentPendingIntent)
+        builder.setContentIntent(contentPendingIntent)
                 .setSmallIcon(R.drawable.ic_music_note)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .addAction(restartAction)
                 .addAction(playPauseAction)
                 .setStyle(new NotificationCompat.MediaStyle()
-                        .setMediaSession(mMediaSession.getSessionToken())
+                        .setMediaSession(mediaSessionCompat.getSessionToken())
                         .setShowActionsInCompactView(0,1));
 
 
@@ -232,22 +236,22 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
      * @param mediaUri The URI of the sample to play.
      */
     private void initializePlayer(Uri mediaUri) {
-        if (mExoPlayer == null) {
+        if (simpleExoPlayer == null) {
             // Create an instance of the ExoPlayer.
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
-            mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
-            mPlayerView.setPlayer(mExoPlayer);
+            simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
+            simpleExoPlayerView.setPlayer(simpleExoPlayer);
 
             // Set the ExoPlayer.EventListener to this activity.
-            mExoPlayer.addListener(this);
+            simpleExoPlayer.addListener(this);
 
             // Prepare the MediaSource.
             String userAgent = Util.getUserAgent(getContext(), "ClassicalMusicQuiz");
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
-            mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
+            simpleExoPlayer.prepare(mediaSource);
+            simpleExoPlayer.setPlayWhenReady(true);
         }
     }
 
@@ -257,23 +261,22 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
      */
     private void releasePlayer() {
         mNotificationManager.cancelAll();
-        mExoPlayer.stop();
-        mExoPlayer.release();
-        mExoPlayer = null;
+        simpleExoPlayer.stop();
+        simpleExoPlayer.release();
+        simpleExoPlayer = null;
     }
 
 
     /**
-     * Release the player when the activity is destroyed.
+     * Release the Exo player
      */
+
     @Override
-    public void onDestroy() {
-            super.onDestroy();
-            releasePlayer();
-            mMediaSession.setActive(false);
-        }
-
-
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+        mediaSessionCompat.setActive(false);
+    }
 
     // ExoPlayer Event Listeners
     @Override
@@ -303,12 +306,12 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
 
         if((playbackState == ExoPlayer.STATE_READY) && playWhenReady){
             mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING,
-                    mExoPlayer.getCurrentPosition(), 1f);
+                    simpleExoPlayer.getCurrentPosition(), 1f);
         } else if((playbackState == ExoPlayer.STATE_READY)){
             mStateBuilder.setState(PlaybackStateCompat.STATE_PAUSED,
-                    mExoPlayer.getCurrentPosition(), 1f);
+                    simpleExoPlayer.getCurrentPosition(), 1f);
         }
-        mMediaSession.setPlaybackState(mStateBuilder.build());
+        mediaSessionCompat.setPlaybackState(mStateBuilder.build());
         showNotification(mStateBuilder.build());
 
     }
@@ -331,17 +334,17 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
     private class MySessionCallback extends MediaSessionCompat.Callback {
         @Override
         public void onPlay() {
-            mExoPlayer.setPlayWhenReady(true);
+            simpleExoPlayer.setPlayWhenReady(true);
         }
 
         @Override
         public void onPause() {
-            mExoPlayer.setPlayWhenReady(false);
+            simpleExoPlayer.setPlayWhenReady(false);
         }
 
         @Override
         public void onSkipToPrevious() {
-            mExoPlayer.seekTo(0);
+            simpleExoPlayer.seekTo(0);
         }
     }
 
@@ -355,7 +358,7 @@ public class StepFragment extends Fragment implements ExoPlayer.EventListener {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            MediaButtonReceiver.handleIntent(mMediaSession, intent);
+            MediaButtonReceiver.handleIntent(mediaSessionCompat, intent);
         }
     }
 

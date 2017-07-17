@@ -2,12 +2,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.e610.bakingapp.Fragments.RecipeDetailedFragment">
+    tools:context="com.example.e610.bakingapp.Fragments.RecipeDetailedFragment"
+    android:background="#b9ae9b"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Steps"
+        android:background="#615132"
+        android:textSize="35dp"
+        android:textAlignment="center"
+        android:id="@+id/recipe_text_name"
+        android:textColor="#000000"
+        android:textStyle="bold|italic"
+        />
 
     <!-- TODO: Update blank fragment layout -->
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/IngredientStepsRecyclerView" />
+        android:id="@+id/ingredient_steps_recyclerView" />
 
 </LinearLayout>

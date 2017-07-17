@@ -11,4 +11,8 @@
     <string name="notification_text">Press play to hear the piece!</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="short_description">Short Description</string>
+    <string name="description">Description</string>
+    <string name="test">aaaaaaaaaaaaaaaaaaaaaasssssssssssssssssssssddddddddddddddd</string>
+    <string name="asd">asd</string>
 </resources>

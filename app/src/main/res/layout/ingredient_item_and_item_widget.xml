@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_shape"
+    android:background="@drawable/border"
     android:id="@+id/ingredientInfoContainer"
     android:padding="5dp"
     android:weightSum="1">
@@ -17,9 +17,9 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:textColor="#000000"
+        android:textStyle="bold|italic"
         android:id="@+id/ingredient_name_widget"
-        android:text="aaaaaaaaaaaaaaaaaaaaaasssssssssssssssssssssddddddddddddddd"
-
+        android:text="@string/test"
         />
 </RelativeLayout>
 <LinearLayout
@@ -34,15 +34,17 @@
         android:text="asd"
         android:textSize="30sp"
         android:textColor="#000000"
+        android:textStyle="bold|italic"
         android:id="@+id/ingredient_quantity_widget"
         android:layout_marginRight="3dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="asd"
+        android:text="@string/asd"
         android:textSize="30sp"
         android:textColor="#000000"
+        android:textStyle="bold|italic"
         android:id="@+id/ingredient_measure_widget"
         android:layout_marginRight="3dp"/>
 

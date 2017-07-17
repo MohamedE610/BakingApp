@@ -1,4 +1,4 @@
-package com.example.e610.bakingapp;
+package com.example.e610.bakingapp.RecipeWidget;
 
 /*
 * Copyright (C) 2017 The Android Open Source Project
@@ -23,37 +23,37 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.e610.bakingapp.Models.Recipe;
+import com.example.e610.bakingapp.R;
 import com.example.e610.bakingapp.Utils.MySharedPreferences;
 
 
-public class GridWidgetService extends RemoteViewsService {
+public class IngredientListWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new GridRemoteViewsFactory(this.getApplicationContext());
+        return new IngredientListRemoteViewsFactory(this.getApplicationContext());
     }
 }
 
-class  GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+class IngredientListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     Context mContext;
 
     Recipe recipe=null;
 
-    public GridRemoteViewsFactory(Context applicationContext) {
+    public IngredientListRemoteViewsFactory(Context applicationContext) {
         mContext = applicationContext;
         MySharedPreferences.setUpMySharedPreferences(mContext,"widgetRecipe");
     }
 
     @Override
     public void onCreate() {
-       // MySharedPreferences.setUpMySharedPreferences(mContext,"widgetRecipe");
-        //recipe=MySharedPreferences.RetriveLastRecipe();
+
     }
 
     //called on start and when notifyAppWidgetViewDataChanged is called
     @Override
     public void onDataSetChanged() {
-       // MySharedPreferences.setUpMySharedPreferences(mContext,"widgetRecipe");
+
         recipe=MySharedPreferences.RetriveLastRecipe();
 
     }
@@ -82,7 +82,7 @@ class  GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
             Log.d("haha","hhhhhhhhhhhhhhhhhhhhhhhhhhhh");
         }
 
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_row_item_widget);
+        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_item_and_item_widget);
 
         if(recipe!=null) {
             Log.d("haha",recipe.getIngredients().get(position).getName());

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class ParsingJson {
 
-    public static ArrayList<Recipe> PasreData(String json){
+    public static ArrayList<Recipe> ParseData(String json){
         ArrayList<Recipe> recipes =new ArrayList<>();
 
         try {

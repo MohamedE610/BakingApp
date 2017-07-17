@@ -48,25 +48,25 @@ public class StepActivityTest {
     }
 
     @Test
-    public void idlingResourceTest() {
+    public void stepActivityTest() {
 
         int CurrentIndex=0;
 
-        onView(ViewMatchers.withId(R.id.RecipesRecyclerView))
+        onView(ViewMatchers.withId(R.id.recipes_recyclerView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(CurrentIndex, click()));
 
-        onView(ViewMatchers.withId(R.id.IngredientStepsRecyclerView))
+        onView(ViewMatchers.withId(R.id.ingredient_steps_recyclerView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(CurrentIndex+1, click()));
         //CurrentIndex+1 as index 0 is "ingredients"
 
-        onView(withId(R.id.step_description)).check(matches(isDisplayed()));
+        onView(withId(R.id.step_description)).perform(scrollTo()).check(matches(isDisplayed()));
 
-        onView(withId(R.id.btnNext)).perform(click());
+        onView(withId(R.id.next_btn)).perform(scrollTo()).perform(click());
         CurrentIndex++;
 
         onView(withId(R.id.step_id)).check(matches(withText("Step "+CurrentIndex)));
 
-        onView(withId(R.id.btnPrevious)).perform(scrollTo()).perform(click());
+        onView(withId(R.id.previous_btn)).perform(scrollTo()).perform(click());
         CurrentIndex--;
 
         onView(withId(R.id.step_id)).check(matches(withText("Step "+CurrentIndex)));
